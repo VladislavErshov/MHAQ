@@ -139,8 +139,10 @@ def resnet20_cifar10(num_classes=10, pretrained=False):
         wrapper.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet20'])['state_dict'])
         return model
 
+
 def resnet20_cifar100(num_classes=100, pretrained=False):
     return get_model("resnet20_cifar100", pretrained=pretrained)
+
 
 def resnet20_cifar10_new(num_classes=10, pretrained=False):
     return get_model("resnet20_cifar10", pretrained=pretrained)
@@ -154,7 +156,17 @@ def resnet32(num_classes=10, pretrained=False):
         model = nn.Sequential(OrderedDict([('module', model)]))
         model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet32'])['state_dict'])
         return model
- 
+
+
+def resnet34(num_classes=10, pretrained=False):
+    if not pretrained:
+        raise NotImplementedError()
+    else:
+        import torchvision.models as models
+        model = model = models.resnet34(pretrained=True)
+        model = nn.Sequential(OrderedDict([('module', model)]))
+        model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet34'])['state_dict'])
+        return model
 
 
 def resnet44(num_classes=10, pretrained=False):
@@ -165,6 +177,7 @@ def resnet44(num_classes=10, pretrained=False):
         model = nn.Sequential(OrderedDict([('module', model)]))
         model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet44'])['state_dict'])
         return model
+
 
 def resnet56(num_classes=10, pretrained=False):
     if not pretrained:
