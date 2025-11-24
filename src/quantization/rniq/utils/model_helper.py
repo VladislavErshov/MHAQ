@@ -23,7 +23,7 @@ class ModelHelper:
                     min = module.weight.amin((1,2,3))
                     max = module.weight.amax((1,2,3))
 
-                    if module.bias:
+                    if module.bias is not None:
                         min_b = module.bias.amin()
                         max_b = module.bias.amax()
                     else:
