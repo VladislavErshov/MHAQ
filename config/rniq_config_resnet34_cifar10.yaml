@@ -1,6 +1,6 @@
 model:
   type: VISION_CLS
-  name: resnet34
+  name: resnet34_cifar10
   params:
     pretrained: True
     num_classes: 10
@@ -15,7 +15,7 @@ training:
   loggers:
     WandbLogger:
       params:
-        name: resnet34-rniq
+        name: resnet34_cifar10-rniq
         note: "Symmetrical KL, no bn, bias quant"
   callbacks:
     LayersWidthVis:

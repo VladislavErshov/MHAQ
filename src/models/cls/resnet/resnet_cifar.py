@@ -29,6 +29,7 @@ weights = {
     #'resnet20': 'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet20-12fca82f.th',
     'resnet20': 'https://github.com/aifoundry-org/MHAQ/raw/refs/heads/bad_temper/saved_models_pytorch/cifar10_ResNet20v1_best.th',
     'resnet32':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet32-d509ac18.th',
+    'resnet34_cifar100':'resnet34_cifar100_sgd_lr001_bs128_ep30_scheduler.pth',
     'resnet44':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
     'resnet56':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
     'resnet110':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
@@ -158,14 +159,24 @@ def resnet32(num_classes=10, pretrained=False):
         return model
 
 
-def resnet34(num_classes=10, pretrained=False):
+def resnet34_cifar10(num_classes=10, pretrained=False):
+    import timm
+    model = timm.create_model("hf_hub:edadaltocg/resnet34_supcon_cifar10", pretrained=pretrained)
+    # model["conv1.weight"] = torch.nn.functional.pad(
+    #     model["conv1.weight"],
+    #     (2, 2, 2, 2)  # добавляем нули до 7×7
+    # )
+    # model = nn.Sequential(OrderedDict([('module', model)]))
+    return model
+
+
+def resnet34_cifar100(num_classes=10, pretrained=False):
     if not pretrained:
-        raise NotImplementedError()
+        return ResNet(BasicBlock, [7, 7, 7], num_classes)
     else:
-        import torchvision.models as models
-        model = model = models.resnet34(pretrained=True)
+        model = ResNet(BasicBlock, [7, 7, 7], num_classes)
         model = nn.Sequential(OrderedDict([('module', model)]))
-        model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet34'])['state_dict'])
+        model.load_state_dict(torch.load(weights['resnet34_cifar100']))
         return model
 
 
