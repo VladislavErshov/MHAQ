@@ -48,8 +48,8 @@ quantization:
   act_bit: 4
   freeze_batchnorm: False
   excluded_layers:
-    - 'module.conv1'
-    - 'module.linear'
+    - 'conv1'
+    - 'fc'
   calibration:
     act_bit: 10
     weight_bit: 10

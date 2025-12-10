@@ -29,7 +29,6 @@ weights = {
     #'resnet20': 'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet20-12fca82f.th',
     'resnet20': 'https://github.com/aifoundry-org/MHAQ/raw/refs/heads/bad_temper/saved_models_pytorch/cifar10_ResNet20v1_best.th',
     'resnet32':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet32-d509ac18.th',
-    'resnet34_cifar100':'resnet34_cifar100_sgd_lr001_bs128_ep30_scheduler.pth',
     'resnet44':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
     'resnet56':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
     'resnet110':'https://github.com/akamaster/pytorch_resnet_cifar10/raw/refs/heads/master/pretrained_models/resnet44-014dd654.th',
@@ -140,10 +139,8 @@ def resnet20_cifar10(num_classes=10, pretrained=False):
         wrapper.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet20'])['state_dict'])
         return model
 
-
 def resnet20_cifar100(num_classes=100, pretrained=False):
     return get_model("resnet20_cifar100", pretrained=pretrained)
-
 
 def resnet20_cifar10_new(num_classes=10, pretrained=False):
     return get_model("resnet20_cifar10", pretrained=pretrained)
@@ -157,27 +154,7 @@ def resnet32(num_classes=10, pretrained=False):
         model = nn.Sequential(OrderedDict([('module', model)]))
         model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet32'])['state_dict'])
         return model
-
-
-def resnet34_cifar10(num_classes=10, pretrained=False):
-    import timm
-    model = timm.create_model("hf_hub:edadaltocg/resnet34_supcon_cifar10", pretrained=pretrained)
-    # model["conv1.weight"] = torch.nn.functional.pad(
-    #     model["conv1.weight"],
-    #     (2, 2, 2, 2)  # добавляем нули до 7×7
-    # )
-    # model = nn.Sequential(OrderedDict([('module', model)]))
-    return model
-
-
-def resnet34_cifar100(num_classes=10, pretrained=False):
-    if not pretrained:
-        return ResNet(BasicBlock, [7, 7, 7], num_classes)
-    else:
-        model = ResNet(BasicBlock, [7, 7, 7], num_classes)
-        model = nn.Sequential(OrderedDict([('module', model)]))
-        model.load_state_dict(torch.load(weights['resnet34_cifar100']))
-        return model
+ 
 
 
 def resnet44(num_classes=10, pretrained=False):
@@ -188,7 +165,6 @@ def resnet44(num_classes=10, pretrained=False):
         model = nn.Sequential(OrderedDict([('module', model)]))
         model.load_state_dict(torch.hub.load_state_dict_from_url(weights['resnet44'])['state_dict'])
         return model
-
 
 def resnet56(num_classes=10, pretrained=False):
     if not pretrained:
