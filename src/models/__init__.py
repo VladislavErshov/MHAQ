@@ -4,6 +4,7 @@ from .cls.resnet.resnet_cifar10 import resnet18_cifar10
 from .cls.resnet.resnet_cifar import resnet20_cifar10
 from .cls.resnet.resnet_cifar import resnet20_cifar10_new
 from .cls.resnet.resnet_cifar import resnet20_cifar100
+from .cls.resnet.resnet_cifar10 import resnet34_cifar10
 from .cls.resnet.resnet_cifar10 import resnet50_cifar10
 from .od import yolo_v11
 from .od.yolo_v11 import yolo_v11_n

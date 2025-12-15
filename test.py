@@ -4,7 +4,7 @@ from src.models.compose.composer import ModelComposer
 from src.training.trainer import Trainer
 from src.quantization.quantizer import Quantizer
 
-config = load_and_validate_config("config/rniq_config_resnet18_cifar10.yaml")
+config = load_and_validate_config("config/rniq_config_resnet34_cifar10.yaml")
 
 dataset_composer = DatasetComposer(config=config)
 model_composer = ModelComposer(config=config)
