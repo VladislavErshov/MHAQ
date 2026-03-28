@@ -178,16 +178,19 @@ class Quantizer:
         # the clamp is before noise beacause adding rounding noise is equivalent to rounding clamp
         value = torch.clamp(value, min=self.min_val, max=self.max_val)
 
-        value = value - self.zero_point
+        value -= self.zero_point
 
         if not self.positive_scale:
             return value
-            
-        value = value / self.scale
+
+        value /= self.scale
 
         noise = self._get_rnoise(value, self.scale)
-         
-        value = value + noise
+
+        value += noise
+
+        # Has bug with min value
+        value = torch.clamp(value, min=self.min_val, max=self.max_val)
 
         #assert valid values
         if not self.module.training:
